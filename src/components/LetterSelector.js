@@ -7,9 +7,16 @@ class LetterSelector extends React.Component {
 
   render() {
     return (
-      <form onSubmit={() => this.props.addNewLetter(this.state.currentLetter)}>
+      <form
+        onSubmit={event => {
+          event.preventDefault();
+          this.setState({ currentLetter: "" });
+          this.props.addNewLetter(this.state.currentLetter, event);
+        }}
+      >
         <label>
           <input
+            value={this.state.currentLetter}
             type="text"
             placeholder="Choose Letter"
             maxLength="1"
