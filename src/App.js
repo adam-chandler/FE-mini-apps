@@ -1,26 +1,44 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import Header from "./components/Header";
+import LetterSelector from "./components/LetterSelector";
+import Lives from "./components/Lives";
+import Letters from "./components/Letters";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  state = {
+    lives: 10,
+    chosenSolution: ["A", "D", "A", "M", " ", "C", "H"],
+    currentSolution: ["", "", "", "", <br />, "", ""],
+    chosenLetters: ["A", "B", "E"]
+  };
+
+  render() {
+    console.log(this.state.chosenLetters);
+    return (
+      <div className="App">
+        <Header />
+        <LetterSelector
+          chosenLetters={this.state.chosenLetters}
+          addNewLetter={this.addNewLetter}
+        />
+        <Lives lives={this.state.lives} />
+        <Letters
+          chosenLetters={this.state.chosenLetters}
+          chosenSolution={this.state.chosenSolution}
+          currentSolution={this.state.currentSolution}
+        />
+      </div>
+    );
+  }
+
+  addNewLetter = letter => {
+    this.setState(currentState => {
+      return {
+        chosenLetters: [...currentState.chosenLetters, letter.toUpperCase()]
+      };
+    });
+  };
 }
 
 export default App;
